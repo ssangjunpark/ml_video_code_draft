@@ -16,16 +16,16 @@ plt.title(train_data.targets[random_idx].item())
 plt.show()
 
 model = nn.Sequential(
+    nn.Conv2d(in_channels=1, out_channels=32, kernel_size=3, stride=2),
+    nn.ReLU(),
+    nn.Conv2d(in_channels=32, out_channels=64, kernel_size=3, stride=2),
+    nn.ReLU(),
+    nn.Conv2d(in_channels=64, out_channels=128, kernel_size=3, stride=2),
+    nn.ReLU(),
     nn.Flatten(),
-    nn.Linear(28*28, 256),
+    nn.Linear(128*2*2, 512),
     nn.ReLU(),
-    nn.Linear(256, 128),
-    nn.ReLU(),
-    nn.Linear(128, 64),
-    nn.ReLU(),
-    nn.Linear(64, 32),
-    nn.ReLU(),
-    nn.Linear(32, len(train_data.classes)),
+    nn.Linear(512, len(train_data.classes))
 )
 
 criterion = nn.CrossEntropyLoss()
