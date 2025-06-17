@@ -87,5 +87,19 @@ with torch.no_grad():
 
     print(f"Test Data Accuracy: {correct / len(test_loader.dataset)}")
 
+with torch.no_grad():
+    for X_test, y_test in test_loader:
+        outputs = model(X_test)
+        predicts = outputs.argmax(dim=1)
+        print(predicts)
+        print(y_test)
+        
+        for idx in range(len(predicts)):
+            if predicts[idx] != y_test[idx]:
+                plt.imshow(X_test[idx][0])
+                plt.title(f"Predicted: {predicts[idx]}  Actual: {y_test[idx]}")
+                plt.show()
+
+        break
+
 torch.save(model.state_dict(), 'mymodel.pt')
-    
